@@ -1,0 +1,397 @@
+{
+  "schemaName": "project-evidence-workbench",
+  "schemaVersion": 1,
+  "rootId": "af93e4bb-a402-4869-85ca-8768aded1b41",
+  "revision": 6,
+  "createdAt": "2026-10-12T10:00:00.000Z",
+  "restored": false,
+  "fixtureRoot": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/evidence/rev2/core-1791797618677/E05/fixtures",
+  "projects": [
+    {
+      "id": "P-demo-1",
+      "title": "虚构单人库存练习",
+      "type": "个人主导",
+      "navigation": "虚构案例，非真实项目",
+      "fictional": true,
+      "revision": 1
+    },
+    {
+      "id": "P-demo-2",
+      "title": "虚构团队官网",
+      "type": "团队参与",
+      "navigation": "虚构案例，非真实项目",
+      "fictional": true,
+      "revision": 1
+    },
+    {
+      "id": "P-demo-3",
+      "title": "虚构录单原型",
+      "type": "只有原型",
+      "navigation": "虚构案例，非真实项目",
+      "fictional": true,
+      "revision": 1
+    }
+  ],
+  "evidence": [
+    {
+      "id": "E1",
+      "locator": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/evidence/rev2/core-1791797618677/E05/fixtures/local-receipt.txt",
+      "purpose": "虚构验收夹具，精确文件",
+      "type": "原件",
+      "sourceDate": "2026-01-02",
+      "productVersion": "demo-1",
+      "confirmer": "fixture-owner",
+      "position": "L2",
+      "excerpt": "明确虚构合成记录，非客户或真实产品\n本地 demo-1 人工记录通过；设备、商业结果 UNKNOWN\n",
+      "lastVerifiedAt": "2026-10-12T10:00:00.000Z",
+      "revision": 1,
+      "revoked": false,
+      "fingerprint": {
+        "dev": 16777244,
+        "ino": 8490788,
+        "size": 117,
+        "mtimeMs": 1791797619028.3896
+      },
+      "hash": "c5128f5cb8cb1ad7b341a2c17fe90b96c48b7a360d8533882d0b359a19041195"
+    },
+    {
+      "id": "E2",
+      "locator": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/evidence/rev2/core-1791797618677/E05/fixtures/role-note.txt",
+      "purpose": "虚构验收夹具，精确文件",
+      "type": "自述",
+      "sourceDate": "2026-01-02",
+      "productVersion": "demo-1",
+      "confirmer": "fixture-owner",
+      "position": "L1",
+      "excerpt": "虚构团队分工：fixture-owner 参与样式检查，非独立交付。\n",
+      "lastVerifiedAt": "2026-10-12T10:00:00.000Z",
+      "revision": 1,
+      "revoked": false,
+      "fingerprint": {
+        "dev": 16777244,
+        "ino": 8490789,
+        "size": 75,
+        "mtimeMs": 1791797619028.5168
+      },
+      "hash": "8caf7afc11b12bed7af5c80a0b53c347e7d42338a09db8387a53e0fded64ab27"
+    },
+    {
+      "id": "E3",
+      "locator": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/evidence/rev2/core-1791797618677/E05/fixtures/release-note.txt",
+      "purpose": "虚构验收夹具，精确文件",
+      "type": "原件",
+      "sourceDate": "2026-01-02",
+      "productVersion": "demo-1",
+      "confirmer": "fixture-owner",
+      "position": "L1",
+      "excerpt": "虚构发布记录：demo-1 未发布。另一旧记录称已发布，待核。\n",
+      "lastVerifiedAt": "2026-10-12T10:00:00.000Z",
+      "revision": 1,
+      "revoked": false,
+      "fingerprint": {
+        "dev": 16777244,
+        "ino": 8490790,
+        "size": 80,
+        "mtimeMs": 1791797619028.625
+      },
+      "hash": "17253a539e736b0b7a3e29633a00bf4db348c5879937b3f25116c19c86969445"
+    },
+    {
+      "id": "E4",
+      "locator": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/evidence/rev2/core-1791797618677/E05/fixtures/mock-note.txt",
+      "purpose": "虚构验收夹具，精确文件",
+      "type": "Mock",
+      "sourceDate": null,
+      "productVersion": "demo-0",
+      "confirmer": "fixture-owner",
+      "position": "L1",
+      "excerpt": "明确虚构录单原型，仅 Mock，无 OCR/模型/客户验收。\n",
+      "lastVerifiedAt": "2026-10-12T10:00:00.000Z",
+      "revision": 1,
+      "revoked": false,
+      "fingerprint": {
+        "dev": 16777244,
+        "ino": 8490791,
+        "size": 69,
+        "mtimeMs": 1791797619028.743
+      },
+      "hash": "1cb819d363a51331d8d59a592271ac3649e3d686fb0ea1730e3e2288d1bca9f1"
+    }
+  ],
+  "claims": [
+    {
+      "id": "C1",
+      "projectIds": [
+        "P-demo-1"
+      ],
+      "dimension": "本地",
+      "text": "据虚构记录，本地练习通过",
+      "evidenceIds": [
+        "E1"
+      ],
+      "recordedResult": "通过",
+      "limits": "非软件验证，不推导真实客户/商业成果",
+      "revision": 1
+    },
+    {
+      "id": "C2",
+      "projectIds": [
+        "P-demo-1"
+      ],
+      "dimension": "设备",
+      "text": "设备未验证",
+      "evidenceIds": [
+        "E1"
+      ],
+      "recordedResult": "UNKNOWN",
+      "limits": "本地记录不是设备证据",
+      "revision": 1
+    },
+    {
+      "id": "C3",
+      "projectIds": [
+        "P-demo-2"
+      ],
+      "dimension": "职责",
+      "text": "仅参与样式检查",
+      "evidenceIds": [
+        "E2"
+      ],
+      "recordedResult": "UNKNOWN",
+      "limits": "自述，非独立交付",
+      "revision": 1
+    },
+    {
+      "id": "C-release-old",
+      "projectIds": [
+        "P-demo-2"
+      ],
+      "dimension": "发布",
+      "text": "旧摘要称已发布",
+      "evidenceIds": [
+        "E3"
+      ],
+      "recordedResult": "通过",
+      "limits": "与同维度新记录冲突，不自动选择",
+      "revision": 1
+    },
+    {
+      "id": "C-release-new",
+      "projectIds": [
+        "P-demo-2"
+      ],
+      "dimension": "发布",
+      "text": "新记录称未发布",
+      "evidenceIds": [
+        "E3"
+      ],
+      "recordedResult": "未验证",
+      "limits": "并列保留",
+      "revision": 1
+    },
+    {
+      "id": "C4",
+      "projectIds": [
+        "P-demo-3"
+      ],
+      "dimension": "本地",
+      "text": "仅虚构 Mock 原型",
+      "evidenceIds": [
+        "E4"
+      ],
+      "recordedResult": "Mock",
+      "limits": "没有 OCR、模型或客户结果",
+      "revision": 1
+    }
+  ],
+  "publicTexts": [
+    {
+      "projectId": "P-demo-1",
+      "publicTitle": "虚构单人库存练习",
+      "publicRole": "个人主导",
+      "publicOutcome": "本地合成流程演示",
+      "publicLimits": "明确虚构，不代表真实成果或许可。",
+      "publicLinks": [],
+      "publicAllowedDates": "",
+      "claimIds": [
+        "C1"
+      ],
+      "revision": 2,
+      "rightsRevision": 2,
+      "rights": {
+        "actor": "fixture-owner",
+        "purpose": "虚构软件验收展示",
+        "expiresAt": null,
+        "revoked": false
+      }
+    },
+    {
+      "projectId": "P-demo-2",
+      "publicTitle": "虚构团队官网",
+      "publicRole": "团队参与",
+      "publicOutcome": "参与样式检查",
+      "publicLimits": "明确虚构，不代表真实成果或许可。",
+      "publicLinks": [],
+      "publicAllowedDates": "",
+      "claimIds": [
+        "C3"
+      ],
+      "revision": 1,
+      "rightsRevision": 1,
+      "rights": {
+        "actor": "",
+        "purpose": "案例文字展示",
+        "expiresAt": null,
+        "revoked": false
+      }
+    },
+    {
+      "projectId": "P-demo-3",
+      "publicTitle": "虚构录单原型",
+      "publicRole": "只有原型",
+      "publicOutcome": "仅 Mock 原型",
+      "publicLimits": "明确虚构，不代表真实成果或许可。",
+      "publicLinks": [],
+      "publicAllowedDates": "",
+      "claimIds": [
+        "C4"
+      ],
+      "revision": 1,
+      "rightsRevision": 1,
+      "rights": {
+        "actor": "",
+        "purpose": "案例文字展示",
+        "expiresAt": null,
+        "revoked": false
+      }
+    }
+  ],
+  "history": [
+    {
+      "revision": 1,
+      "at": "2026-10-12T10:00:00.000Z",
+      "actor": "fixture-owner",
+      "action": "grant",
+      "diff": []
+    },
+    {
+      "revision": 2,
+      "at": "2026-10-12T10:00:00.000Z",
+      "actor": "fixture-owner",
+      "action": "check",
+      "diff": [
+        {
+          "object": "evidence",
+          "id": "E1",
+          "fields": [
+            "excerpt",
+            "lastVerifiedAt",
+            "fingerprint",
+            "hash"
+          ]
+        }
+      ]
+    },
+    {
+      "revision": 3,
+      "at": "2026-10-12T10:00:00.000Z",
+      "actor": "fixture-owner",
+      "action": "check",
+      "diff": [
+        {
+          "object": "evidence",
+          "id": "E2",
+          "fields": [
+            "excerpt",
+            "lastVerifiedAt",
+            "fingerprint",
+            "hash"
+          ]
+        }
+      ]
+    },
+    {
+      "revision": 4,
+      "at": "2026-10-12T10:00:00.000Z",
+      "actor": "fixture-owner",
+      "action": "check",
+      "diff": [
+        {
+          "object": "evidence",
+          "id": "E3",
+          "fields": [
+            "excerpt",
+            "lastVerifiedAt",
+            "fingerprint",
+            "hash"
+          ]
+        }
+      ]
+    },
+    {
+      "revision": 5,
+      "at": "2026-10-12T10:00:00.000Z",
+      "actor": "fixture-owner",
+      "action": "check",
+      "diff": [
+        {
+          "object": "evidence",
+          "id": "E4",
+          "fields": [
+            "excerpt",
+            "lastVerifiedAt",
+            "fingerprint",
+            "hash"
+          ]
+        }
+      ]
+    },
+    {
+      "revision": 6,
+      "at": "2026-10-12T10:00:00.000Z",
+      "actor": "local-user",
+      "action": "save-public",
+      "diff": [
+        {
+          "object": "publicTexts",
+          "id": "P-demo-1",
+          "fields": [
+            "revision",
+            "rightsRevision",
+            "rights"
+          ]
+        }
+      ]
+    }
+  ],
+  "grantHistory": [
+    {
+      "evidenceId": "E1",
+      "actor": "fixture-owner",
+      "at": "2026-10-12T10:00:00.000Z",
+      "mode": "content",
+      "revoked": false
+    },
+    {
+      "evidenceId": "E2",
+      "actor": "fixture-owner",
+      "at": "2026-10-12T10:00:00.000Z",
+      "mode": "content",
+      "revoked": false
+    },
+    {
+      "evidenceId": "E3",
+      "actor": "fixture-owner",
+      "at": "2026-10-12T10:00:00.000Z",
+      "mode": "content",
+      "revoked": false
+    },
+    {
+      "evidenceId": "E4",
+      "actor": "fixture-owner",
+      "at": "2026-10-12T10:00:00.000Z",
+      "mode": "content",
+      "revoked": false
+    }
+  ]
+}

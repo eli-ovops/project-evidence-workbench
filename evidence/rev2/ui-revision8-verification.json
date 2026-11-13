@@ -1,0 +1,42 @@
+{
+  "uiRevision": 8,
+  "sourceFingerprint": "afaffec6462da02eeab0956d86127edba5c0a93e463029206c8d708f67cc2ecf",
+  "owner": "01a12ed9-1b22-7d40-a6da-09f604fd72dc",
+  "changedApplicationFiles": [
+    "app/main.tsx",
+    "app/style.css",
+    "dist/assets/index-CWc2Gjw8.js",
+    "dist/assets/index-iaDqvyQA.css",
+    "dist/index.html"
+  ],
+  "backendUnchangedSinceUI7": true,
+  "buildStatus": "PASS_TYPESCRIPT_AND_VITE",
+  "binding": "VERSION prepared before final runs; application hashes rechecked afterwards; no subsequent application edits",
+  "receipts": {
+    "sources": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/evidence/rev2/sources-1791815083703/receipt.json",
+    "notebook": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/evidence/rev2/notebook-1791815225569/receipt.json",
+    "craft": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/evidence/rev2/craft-after-1791815226720/receipt.json",
+    "completion": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/.impeccable/review/completion-1791815083711/receipt.json",
+    "interaction": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/.impeccable/review/interaction-1791815225581/receipt.json",
+    "workflow": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/.impeccable/review/workflow-1791815225568/receipt.json",
+    "browser": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/evidence/rev2/browser-1791815083709/receipt.json"
+  },
+  "checks": {
+    "sources": 6,
+    "notebook": 7,
+    "craft": 9,
+    "completion": 7,
+    "interaction": 7,
+    "workflow": 9,
+    "browser": 7
+  },
+  "services": "STOPPED_OWNED_INSTANCES",
+  "deviations": [],
+  "limitations": [
+    "same-owner technical review, not independent design acceptance",
+    "synthetic inputs; no real project material",
+    "320px is a browser viewport, not physical-device evidence",
+    "citation navigation context is temporary and not restored by refresh",
+    "motion samples are not a performance benchmark"
+  ]
+}

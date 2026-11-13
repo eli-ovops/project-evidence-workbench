@@ -1,0 +1,18 @@
+{
+  "uiRevision": 4,
+  "sourceFingerprint": "1f7bf924714da1718716b227adc883f14a25361763f26060b30b9bdef4e09638",
+  "changedApplicationFiles": [
+    "app/main.tsx",
+    "app/style.css",
+    "dist/assets/index-BweHg2nn.js",
+    "dist/assets/index-Ch-TWbv0.css",
+    "dist/index.html"
+  ],
+  "backendUnchangedSinceUI3": true,
+  "workflowReceipt": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/.impeccable/review/workflow-1791805166974/receipt.json",
+  "interactionReceipt": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/.impeccable/review/interaction-1791805134714/receipt.json",
+  "browserReceipt": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/evidence/rev2/browser-1791805134685/receipt.json",
+  "binding": "VERSION prepared before these runs; no application edits after build or tests",
+  "owner": "01a12ed9-1b22-7d40-a6da-09f604fd72dc",
+  "deviations": []
+}

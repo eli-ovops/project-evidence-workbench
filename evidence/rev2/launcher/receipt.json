@@ -1,0 +1,19 @@
+{
+  "status": "PASS",
+  "entry": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/启动工作台.command",
+  "invocation": "PEW_OPEN_BROWSER=0 ./启动工作台.command; browser separately opens its actual generated startup file",
+  "appVersion": "0.1.0",
+  "dataRoot": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/data/demo",
+  "url": "http://127.0.0.1:52199",
+  "rootId": "28998d97-d197-4920-a251-f4da4a48d382",
+  "checks": [
+    "actual shell startup without user build",
+    "actual browser startup-file authentication",
+    "3 fictional cases ready",
+    "historical permissions not activated"
+  ],
+  "deviations": [],
+  "createdAt": "2026-10-12T09:42:08.720Z",
+  "sourceFingerprint": "b60f972e89629086a6c08a9cdd35651cb748b30f314bd407dbea6a4408ac7bf8",
+  "versionReceipt": "evidence/rev2/VERSION.json"
+}

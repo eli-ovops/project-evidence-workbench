@@ -1,0 +1,277 @@
+{
+  "schemaName": "project-evidence-workbench",
+  "schemaVersion": 1,
+  "rootId": "4afae758-b65d-4019-85a7-48dae9880831",
+  "revision": 2,
+  "createdAt": "2026-10-12T14:10:11.368Z",
+  "restored": false,
+  "fixtureRoot": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/evidence/rev2/sources-1791814211098/fixtures-demo",
+  "projects": [
+    {
+      "id": "P-demo-1",
+      "title": "虚构单人库存练习",
+      "type": "个人主导",
+      "navigation": "虚构案例，非真实项目",
+      "fictional": true,
+      "revision": 1
+    },
+    {
+      "id": "P-demo-2",
+      "title": "虚构团队官网",
+      "type": "团队参与",
+      "navigation": "虚构案例，非真实项目",
+      "fictional": true,
+      "revision": 1
+    },
+    {
+      "id": "P-demo-3",
+      "title": "虚构录单原型",
+      "type": "只有原型",
+      "navigation": "虚构案例，非真实项目",
+      "fictional": true,
+      "revision": 1
+    }
+  ],
+  "evidence": [
+    {
+      "id": "E1",
+      "locator": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/evidence/rev2/sources-1791814211098/fixtures-demo/local-receipt.txt",
+      "purpose": "虚构验收夹具，精确文件",
+      "type": "原件",
+      "sourceDate": "2026-01-02",
+      "productVersion": "demo-1",
+      "confirmer": "fixture-owner",
+      "position": "L2",
+      "excerpt": "",
+      "lastVerifiedAt": null,
+      "revision": 1,
+      "revoked": false
+    },
+    {
+      "id": "E2",
+      "locator": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/evidence/rev2/sources-1791814211098/fixtures-demo/synthetic-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.txt",
+      "purpose": "synthetic-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "type": "自述",
+      "sourceDate": "2026-01-02",
+      "productVersion": "demo-1",
+      "confirmer": "fixture-owner",
+      "position": "L1",
+      "excerpt": "",
+      "lastVerifiedAt": null,
+      "revision": 2,
+      "revoked": false
+    },
+    {
+      "id": "E3",
+      "locator": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/evidence/rev2/sources-1791814211098/fixtures-demo/release-note.txt",
+      "purpose": "虚构验收夹具，精确文件",
+      "type": "原件",
+      "sourceDate": "2026-01-02",
+      "productVersion": "demo-1",
+      "confirmer": "fixture-owner",
+      "position": "L1",
+      "excerpt": "",
+      "lastVerifiedAt": null,
+      "revision": 1,
+      "revoked": false
+    },
+    {
+      "id": "E4",
+      "locator": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/evidence/rev2/sources-1791814211098/fixtures-demo/mock-note.txt",
+      "purpose": "虚构验收夹具，精确文件",
+      "type": "Mock",
+      "sourceDate": null,
+      "productVersion": "demo-0",
+      "confirmer": "fixture-owner",
+      "position": "L1",
+      "excerpt": "",
+      "lastVerifiedAt": null,
+      "revision": 1,
+      "revoked": false
+    }
+  ],
+  "claims": [
+    {
+      "id": "C1",
+      "projectIds": [
+        "P-demo-1"
+      ],
+      "dimension": "本地",
+      "text": "据虚构记录，本地练习通过",
+      "evidenceIds": [
+        "E1"
+      ],
+      "recordedResult": "通过",
+      "limits": "非软件验证，不推导真实客户/商业成果",
+      "revision": 1
+    },
+    {
+      "id": "C2",
+      "projectIds": [
+        "P-demo-1"
+      ],
+      "dimension": "设备",
+      "text": "设备未验证",
+      "evidenceIds": [
+        "E1"
+      ],
+      "recordedResult": "UNKNOWN",
+      "limits": "本地记录不是设备证据",
+      "revision": 1
+    },
+    {
+      "id": "C3",
+      "projectIds": [
+        "P-demo-2"
+      ],
+      "dimension": "职责",
+      "text": "仅参与样式检查",
+      "evidenceIds": [
+        "E2"
+      ],
+      "recordedResult": "UNKNOWN",
+      "limits": "synthetic-cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "revision": 2
+    },
+    {
+      "id": "C-release-old",
+      "projectIds": [
+        "P-demo-2"
+      ],
+      "dimension": "发布",
+      "text": "旧摘要称已发布",
+      "evidenceIds": [
+        "E3"
+      ],
+      "recordedResult": "通过",
+      "limits": "与同维度新记录冲突，不自动选择",
+      "revision": 1
+    },
+    {
+      "id": "C-release-new",
+      "projectIds": [
+        "P-demo-2"
+      ],
+      "dimension": "发布",
+      "text": "新记录称未发布",
+      "evidenceIds": [
+        "E3"
+      ],
+      "recordedResult": "未验证",
+      "limits": "并列保留",
+      "revision": 1
+    },
+    {
+      "id": "C4",
+      "projectIds": [
+        "P-demo-3"
+      ],
+      "dimension": "本地",
+      "text": "仅虚构 Mock 原型",
+      "evidenceIds": [
+        "E4"
+      ],
+      "recordedResult": "Mock",
+      "limits": "没有 OCR、模型或客户结果",
+      "revision": 1
+    }
+  ],
+  "publicTexts": [
+    {
+      "projectId": "P-demo-1",
+      "publicTitle": "虚构单人库存练习",
+      "publicRole": "个人主导",
+      "publicOutcome": "本地合成流程演示",
+      "publicLimits": "明确虚构，不代表真实成果或许可。",
+      "publicLinks": [],
+      "publicAllowedDates": "",
+      "claimIds": [
+        "C1"
+      ],
+      "revision": 1,
+      "rightsRevision": 1,
+      "rights": {
+        "actor": "",
+        "purpose": "案例文字展示",
+        "expiresAt": null,
+        "revoked": false
+      }
+    },
+    {
+      "projectId": "P-demo-2",
+      "publicTitle": "虚构团队官网",
+      "publicRole": "团队参与",
+      "publicOutcome": "参与样式检查",
+      "publicLimits": "明确虚构，不代表真实成果或许可。",
+      "publicLinks": [],
+      "publicAllowedDates": "",
+      "claimIds": [
+        "C3"
+      ],
+      "revision": 1,
+      "rightsRevision": 1,
+      "rights": {
+        "actor": "",
+        "purpose": "案例文字展示",
+        "expiresAt": null,
+        "revoked": false
+      }
+    },
+    {
+      "projectId": "P-demo-3",
+      "publicTitle": "虚构录单原型",
+      "publicRole": "只有原型",
+      "publicOutcome": "仅 Mock 原型",
+      "publicLimits": "明确虚构，不代表真实成果或许可。",
+      "publicLinks": [],
+      "publicAllowedDates": "",
+      "claimIds": [
+        "C4"
+      ],
+      "revision": 1,
+      "rightsRevision": 1,
+      "rights": {
+        "actor": "",
+        "purpose": "案例文字展示",
+        "expiresAt": null,
+        "revoked": false
+      }
+    }
+  ],
+  "history": [
+    {
+      "revision": 1,
+      "at": "2026-10-12T14:10:13.819Z",
+      "actor": "local-user",
+      "action": "save-evidence",
+      "diff": [
+        {
+          "object": "evidence",
+          "id": "E2",
+          "fields": [
+            "locator",
+            "purpose",
+            "revision"
+          ]
+        }
+      ]
+    },
+    {
+      "revision": 2,
+      "at": "2026-10-12T14:10:13.855Z",
+      "actor": "local-user",
+      "action": "save-claim",
+      "diff": [
+        {
+          "object": "claims",
+          "id": "C3",
+          "fields": [
+            "limits",
+            "revision"
+          ]
+        }
+      ]
+    }
+  ],
+  "grantHistory": []
+}

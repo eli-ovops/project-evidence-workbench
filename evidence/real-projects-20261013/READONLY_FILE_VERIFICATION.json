@@ -1,0 +1,182 @@
+{
+  "inspectionDate": "2026-10-13",
+  "dateBasis": "user client date, Asia/Shanghai",
+  "method": "read existing originals and recompute selected file SHA256; no build/test/new synthetic data/server requests",
+  "scope": [
+    "WilliamRock 扫码库存",
+    "淼瀚洁具 ERP"
+  ],
+  "projects": [
+    {
+      "name": "WilliamRock 扫码库存",
+      "codeModule": "/Volumes/EXTERNAL/wr库存系统/server/inventory.ts",
+      "codeManifest": "/Volumes/EXTERNAL/wr库存系统/artifacts/source-manifest.json",
+      "codeChecks": [
+        {
+          "path": "/Volumes/EXTERNAL/wr库存系统/migrations/0001_inventory.sql",
+          "recordedSHA256": "63ace545ea195c9a13be3abcc35960f055a66fe70af98d7b70cb664685913ab6",
+          "observedSHA256": "63ace545ea195c9a13be3abcc35960f055a66fe70af98d7b70cb664685913ab6",
+          "matches": true
+        },
+        {
+          "path": "/Volumes/EXTERNAL/wr库存系统/migrations/0002_request_cancellations.sql",
+          "recordedSHA256": "03273573d9e35fdfbc19b24d6416074320a18b8fb369b5730b65eedabce084f0",
+          "observedSHA256": "03273573d9e35fdfbc19b24d6416074320a18b8fb369b5730b65eedabce084f0",
+          "matches": true
+        },
+        {
+          "path": "/Volumes/EXTERNAL/wr库存系统/server/auth.ts",
+          "recordedSHA256": "68d1b1616fc9cc3a76342e4203edef2f5127aa239729945df65474e2b6538d53",
+          "observedSHA256": "68d1b1616fc9cc3a76342e4203edef2f5127aa239729945df65474e2b6538d53",
+          "matches": true
+        },
+        {
+          "path": "/Volumes/EXTERNAL/wr库存系统/server/env.ts",
+          "recordedSHA256": "751edd23a45421a40e35e97db57cf0c94284403310405eff9a2213a630e9d8c8",
+          "observedSHA256": "751edd23a45421a40e35e97db57cf0c94284403310405eff9a2213a630e9d8c8",
+          "matches": true
+        },
+        {
+          "path": "/Volumes/EXTERNAL/wr库存系统/server/index.ts",
+          "recordedSHA256": "c4a6e5141d6f55b421dc549112446657aa1b5a530c9cf27d9877fbf492263adf",
+          "observedSHA256": "c4a6e5141d6f55b421dc549112446657aa1b5a530c9cf27d9877fbf492263adf",
+          "matches": true
+        },
+        {
+          "path": "/Volumes/EXTERNAL/wr库存系统/server/inventory.ts",
+          "recordedSHA256": "0c48f2a4309e068806151e8647495a07eb87531e7803485809aec718bc4ba1c2",
+          "observedSHA256": "0c48f2a4309e068806151e8647495a07eb87531e7803485809aec718bc4ba1c2",
+          "matches": true
+        },
+        {
+          "path": "/Volumes/EXTERNAL/wr库存系统/src/Admin.tsx",
+          "recordedSHA256": "91c3b1dc657a8568f1089b033bdebfca90983256146bbeb93fb6750058b38bb7",
+          "observedSHA256": "91c3b1dc657a8568f1089b033bdebfca90983256146bbeb93fb6750058b38bb7",
+          "matches": true
+        },
+        {
+          "path": "/Volumes/EXTERNAL/wr库存系统/src/App.tsx",
+          "recordedSHA256": "f2b678aa3592597d08c91dd9efb1ad47298246bf8f849d71e63210f262c7525c",
+          "observedSHA256": "f2b678aa3592597d08c91dd9efb1ad47298246bf8f849d71e63210f262c7525c",
+          "matches": true
+        },
+        {
+          "path": "/Volumes/EXTERNAL/wr库存系统/src/Inventory.tsx",
+          "recordedSHA256": "1738d3a7156416bca49038818309f6463a9a297264a665da47e1f9e65979e12f",
+          "observedSHA256": "1738d3a7156416bca49038818309f6463a9a297264a665da47e1f9e65979e12f",
+          "matches": true
+        },
+        {
+          "path": "/Volumes/EXTERNAL/wr库存系统/src/Operations.tsx",
+          "recordedSHA256": "ac3d4d5b337e1415b63a7898a557fc592fd20f93c955e3ad18ed37ec3918c35e",
+          "observedSHA256": "ac3d4d5b337e1415b63a7898a557fc592fd20f93c955e3ad18ed37ec3918c35e",
+          "matches": true
+        },
+        {
+          "path": "/Volumes/EXTERNAL/wr库存系统/src/Records.tsx",
+          "recordedSHA256": "8160a39fe3ddd3ddf5983a6a3fb60a55e9582a173f0810015bf3e38ac533af38",
+          "observedSHA256": "8160a39fe3ddd3ddf5983a6a3fb60a55e9582a173f0810015bf3e38ac533af38",
+          "matches": true
+        },
+        {
+          "path": "/Volumes/EXTERNAL/wr库存系统/src/Scanner.tsx",
+          "recordedSHA256": "56dfde1c52dbbf75b733dd41c3105fa582bb9e7bcf69eb4c1bd13bcc6d4cdcfb",
+          "observedSHA256": "26bd08c78250feeef40916183fecfe1caafbea371fe2775e54ef09e7ae119e91",
+          "matches": false
+        },
+        {
+          "path": "/Volumes/EXTERNAL/wr库存系统/src/api.ts",
+          "recordedSHA256": "8dedbd0b15c4b1b8cf1bb87c447b9d672cf0c41d602227f42b635f3a492e8fd0",
+          "observedSHA256": "8dedbd0b15c4b1b8cf1bb87c447b9d672cf0c41d602227f42b635f3a492e8fd0",
+          "matches": true
+        },
+        {
+          "path": "/Volumes/EXTERNAL/wr库存系统/src/data.ts",
+          "recordedSHA256": "ffbbf52c33c5184e500fc08e72e78a5a1f0505eb86d6612f5979f7ec5fa520af",
+          "observedSHA256": "ffbbf52c33c5184e500fc08e72e78a5a1f0505eb86d6612f5979f7ec5fa520af",
+          "matches": true
+        },
+        {
+          "path": "/Volumes/EXTERNAL/wr库存系统/src/main.tsx",
+          "recordedSHA256": "3897de97e67a6b1b516ed33f1b858e20f06b270b1eb74b2fe10283a35b321bee",
+          "observedSHA256": "3897de97e67a6b1b516ed33f1b858e20f06b270b1eb74b2fe10283a35b321bee",
+          "matches": true
+        },
+        {
+          "path": "/Volumes/EXTERNAL/wr库存系统/src/print.css",
+          "recordedSHA256": "e21a20b2dc2387d5c0b6cfadcd844478902876dda853fd9b5ca8bd84073cf727",
+          "observedSHA256": "e21a20b2dc2387d5c0b6cfadcd844478902876dda853fd9b5ca8bd84073cf727",
+          "matches": true
+        },
+        {
+          "path": "/Volumes/EXTERNAL/wr库存系统/src/styles.css",
+          "recordedSHA256": "2265cfdc783922d454bd6f3e5736e889061b23674e55a93db0955678115b19ca",
+          "observedSHA256": "2265cfdc783922d454bd6f3e5736e889061b23674e55a93db0955678115b19ca",
+          "matches": true
+        },
+        {
+          "path": "/Volumes/EXTERNAL/wr库存系统/src/transaction.tsx",
+          "recordedSHA256": "f87a0a67a88a416961cf368d8acdaa5a857b764b015810556eefdb8b130a59b1",
+          "observedSHA256": "f87a0a67a88a416961cf368d8acdaa5a857b764b015810556eefdb8b130a59b1",
+          "matches": true
+        },
+        {
+          "path": "/Volumes/EXTERNAL/wr库存系统/src/ui.tsx",
+          "recordedSHA256": "c295131df162056209724f029f05eb1d10fa795c549f4fb9af39a091922c9ad5",
+          "observedSHA256": "c295131df162056209724f029f05eb1d10fa795c549f4fb9af39a091922c9ad5",
+          "matches": true
+        }
+      ],
+      "deploymentRecord": "/Volumes/EXTERNAL/wr库存系统/docs/IMPLEMENTATION.md",
+      "originalCloudReceipt": "/Volumes/EXTERNAL/wr库存系统/artifacts/cloud-acceptance-20260908.json",
+      "cloudReceiptDate": "2026-09-08",
+      "receiptScope": "cloud virtual-only pilot; excluded as real-factory/customer acceptance",
+      "customerAcceptance": "NOT_ESTABLISHED_BY_REVIEWED_ORIGINALS",
+      "limits": [
+        "Scanner.tsx SHA differs from historical manifest; semantic difference not audited",
+        "no real-phone/factory-network/customer signoff established",
+        "no current cloud running-state probe performed"
+      ]
+    },
+    {
+      "name": "淼瀚洁具 ERP",
+      "sourceController": "/Volumes/EXTERNAL/ERP试跑-20261005/build/cao-erp-manufacturing/brt-admin/src/main/java/com/brt/production/controller/BrtProductInventoryController.java",
+      "deliveredJar": "/Volumes/EXTERNAL/ERP试跑-20261005/repair-20261009-F16/upload-components-isolated-r1.jar",
+      "bytes": 122187706,
+      "observedSHA256": "a191f5e48cacff663006219d9f378c6f1d54bbf0c10d58e7c625ec4e434ec976",
+      "publishedSHA256": "a191f5e48cacff663006219d9f378c6f1d54bbf0c10d58e7c625ec4e434ec976",
+      "matchesPublishedReceipt": true,
+      "deploymentReceipt": "/Volumes/EXTERNAL/ERP试跑-20261005/repair-20261009-F16/components-release-r1-deployment-attempt.json",
+      "protectedStateReceipt": "/Volumes/EXTERNAL/ERP试跑-20261005/repair-20261009-F16/after-release-protected-r1.json",
+      "limitedTechnicalReview": "/Volumes/EXTERNAL/ERP试跑-20261005/repair-20261009-F16/live-functional-final-review-r1.json",
+      "finiteF16ReviewAccepted": true,
+      "original18Complete": false,
+      "originalBusinessAcceptance": "pending",
+      "pcIndex": "/Volumes/EXTERNAL/ERP试跑-20261005/version-2.0.0-20261009/index.html",
+      "pcObservedSHA256": "5c5b1873202c2570fd75fd95ab70adfdf4b986a4c44b8968519257287cc13075",
+      "pcRecordedSHA256": "5c5b1873202c2570fd75fd95ab70adfdf4b986a4c44b8968519257287cc13075",
+      "pcMatchesReceipt": true,
+      "pcDeploymentReceipt": "/Volumes/EXTERNAL/ERP试跑-20261005/version-2.0.0-20261009/deployment-stdout.json",
+      "pcBrowserReceipt": "/Volumes/EXTERNAL/ERP试跑-20261005/version-2.0.0-20261009/browser-check.json",
+      "freezeRecord": "/Users/USER/Documents/ChatGPT/淼瀚洁具 库存管理系统/docs/2026-10-09-交付版本冻结.md",
+      "customerChecklist": "/Users/USER/Documents/ChatGPT/淼瀚洁具 库存管理系统/docs/2026-10-10-2.0人工测试清单.md",
+      "customerAcceptance": "NOT_ESTABLISHED_BY_REVIEWED_ORIGINALS",
+      "limits": [
+        "local source tree contains deferred/unpublished modifications and is not identical in scope to delivered frozen JAR",
+        "release receipt is historical 2026-10-09, not a current-live-server proof",
+        "manual checklist is instructions, not an executed customer acceptance report",
+        "original18_complete false; deferred items and reboot/restore gaps retained"
+      ]
+    }
+  ],
+  "notClaimed": [
+    "personal original authorship of all code",
+    "customer signed acceptance",
+    "real factory usage",
+    "commercial revenue",
+    "current production availability"
+  ],
+  "sourceProjectsModified": false,
+  "newSimulationGenerated": false,
+  "secretsRead": false
+}

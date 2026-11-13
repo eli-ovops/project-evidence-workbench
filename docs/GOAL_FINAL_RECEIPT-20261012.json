@@ -1,0 +1,18 @@
+{
+  "tool": "update_goal",
+  "requestedStatus": "complete",
+  "scope": "本Owner软件P0实现、必需技术验收与可运行交付；PMO总体审证单列",
+  "rawResult": {
+    "goal": {
+      "threadId": "01a12ed9-1b22-7d40-a6da-09f604fd72dc",
+      "objective": "按Rev2 PRD /Volumes/EXTERNAL/FDE/project-evidence-workbench/docs/EXECUTION_PRD-20261012.md 及本轮实施派单完成项目证据工作台的B1—B4、E01—E05：在本机隔离合成根实现、修复、验证、交付已测启动入口/虚构样例/实际导出/重启和隔离恢复/原始回执与已知问题。累计最多12小时，普通问题自主处理，必需验收未通过不标complete，不接真实数据/账户/媒体或外发/生产。",
+      "status": "complete",
+      "tokensUsed": 230785,
+      "timeUsedSeconds": 3882,
+      "createdAt": 1791794509,
+      "updatedAt": 1791798391
+    },
+    "remainingTokens": null,
+    "completionBudgetReport": "Goal achieved. Report final usage from this tool result's structured goal fields. If `goal.tokenBudget` is present, include token usage from `goal.tokensUsed` and `goal.tokenBudget`. If `goal.timeUsedSeconds` is greater than 0, summarize elapsed time in a concise, human-friendly form appropriate to the response language."
+  }
+}

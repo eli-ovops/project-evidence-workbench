@@ -1,0 +1,30 @@
+{
+  "uiRevision": 5,
+  "sourceFingerprint": "ff276d0f8f1c07eeb1e51fad10787477bcce1b94b8fcc6d286215c2b995ae83f",
+  "changedApplicationFiles": [
+    "app/main.tsx",
+    "app/style.css",
+    "dist/assets/index-DQQEh0VG.js",
+    "dist/assets/index-DYkLKA9m.css",
+    "dist/index.html"
+  ],
+  "backendUnchangedSinceUI4": true,
+  "buildStatus": "PASS_TYPESCRIPT_AND_VITE",
+  "owner": "01a12ed9-1b22-7d40-a6da-09f604fd72dc",
+  "binding": "VERSION prepared before final runs; application hashes rechecked after tests; no application edits after build",
+  "receipts": {
+    "completion": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/.impeccable/review/completion-1791806807931/receipt.json",
+    "interaction": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/.impeccable/review/interaction-1791806807934/receipt.json",
+    "workflow": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/.impeccable/review/workflow-1791806807934/receipt.json",
+    "browser": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/evidence/rev2/browser-1791806807935/receipt.json"
+  },
+  "checks": {
+    "completion": 7,
+    "interaction": 7,
+    "workflow": 9,
+    "browser": 7
+  },
+  "review": "same-thread targeted review, not independent acceptance",
+  "services": "STOPPED_OWNED_INSTANCES",
+  "deviations": []
+}

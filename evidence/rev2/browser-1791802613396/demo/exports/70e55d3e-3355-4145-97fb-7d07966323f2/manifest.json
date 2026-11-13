@@ -1,0 +1,38 @@
+{
+  "producerApp": "project-evidence-workbench",
+  "appVersion": "0.1.0",
+  "schemaName": "project-evidence-workbench",
+  "schemaVersion": 1,
+  "exportId": "70e55d3e-3355-4145-97fb-7d07966323f2",
+  "createdAt": "2026-10-12T10:56:57.117Z",
+  "sourceRevisionRefs": [
+    {
+      "rootId": "8fe405bf-7387-4834-9917-0750f90036ca",
+      "revision": 6
+    }
+  ],
+  "files": [
+    {
+      "relativePath": "state.json",
+      "sha256": "eec08a5677a4a3dfe896cf6c134d37c446771809175b7d3bfcca10b0a396434e",
+      "bytes": 9892
+    },
+    {
+      "relativePath": "index.md",
+      "sha256": "9aff67b1dc95ef92cb61ef1adcecac19da41cdba246cf24fed25c17f7275f91d",
+      "bytes": 1350
+    }
+  ],
+  "verificationCoverage": [
+    "tool-state",
+    "ID-relations"
+  ],
+  "limitations": [
+    "索引不是原项目备份",
+    "规则与人工记录不证明业务真实",
+    "真实资料与许可 USER_PENDING"
+  ],
+  "privacyMode": "internal",
+  "status": "COMPLETED",
+  "lockedRevision": 6
+}

@@ -1,0 +1,15 @@
+{
+  "status": "FAIL",
+  "checks": [
+    "filename citation keyboard-jumps to exact E3 and opens its record without reading or authority mutation",
+    "return restores focus to originating claim even when two claims cite E3",
+    "project change clears source context rather than carrying a stale target",
+    "long filename, unbroken purpose and limits wrap in 320px citation and file views",
+    "source journey works with native disclosure transition disabled"
+  ],
+  "pageErrors": [],
+  "artifactRoot": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/evidence/rev2/sources-1791814858144",
+  "startedAt": "2026-10-12T14:20:58.147Z",
+  "syntheticSource": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/evidence/rev2/sources-1791814858144/fixtures-demo/synthetic-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.txt",
+  "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+}

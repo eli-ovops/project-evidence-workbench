@@ -1,0 +1,18 @@
+{
+  "scenario": "E05",
+  "appVersion": "0.1.0",
+  "fixture": "E05",
+  "owner": "01a12ed9-1b22-7d40-a6da-09f604fd72dc",
+  "createdAt": "2026-10-12T10:49:06.854Z",
+  "deviations": [],
+  "status": "PASS",
+  "assertions": [
+    "actual internal/public package files read/hash",
+    "partial never success/download",
+    "fresh root restore relationship equality",
+    "imported grants/approvals remain historical",
+    "original data/package unchanged",
+    "other/future schema and dangling ID rejected"
+  ],
+  "artifactRoot": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/evidence/rev2/core-1791802146127"
+}

@@ -1,0 +1,125 @@
+{
+  "appVersion": "0.1.0",
+  "schemaName": "project-evidence-workbench",
+  "schemaVersion": 1,
+  "createdAt": "2026-10-12T11:04:22.085Z",
+  "sourceFingerprint": "20bf45333d575d297880e9d68bc306863930c7fa70a5f4164993c687301e75c9",
+  "files": [
+    {
+      "path": "app/main.tsx",
+      "bytes": 31024,
+      "sha256": "dd9bebf502af3b3ee072f982e2c2e1c6fc470a3aaaee9d9b6b0380d7b192c74f"
+    },
+    {
+      "path": "app/style.css",
+      "bytes": 21784,
+      "sha256": "d4c9b920ae1fca20f1ed11357d12ed27d594bfc186088044c199e8d584d3d5e4"
+    },
+    {
+      "path": "build/server/fixtures.js",
+      "bytes": 3553,
+      "sha256": "83c0fbe530647ba9ca9fe247ba32e1ac7aead79bcce21920c89fa9b4f3cba142"
+    },
+    {
+      "path": "build/server/main.js",
+      "bytes": 9932,
+      "sha256": "4aac5cf6be9c940ef071a819e00fb449a127b3254358901f429a0b7f92e1cfd9"
+    },
+    {
+      "path": "build/server/model.js",
+      "bytes": 7056,
+      "sha256": "c22b4b9679b365845ed02eb644e1e245f631ab24be22545db7c6fffacd0e2ec3"
+    },
+    {
+      "path": "build/server/workbench.js",
+      "bytes": 32472,
+      "sha256": "11fca7d1e981d063c84da518bc47a4659686257d9b737a3e9d243ca330d6a154"
+    },
+    {
+      "path": "dist/assets/index-BWVGJA5G.js",
+      "bytes": 252299,
+      "sha256": "d47134f5c147b83b9ce0c04b9de7b71e4f593b9a69abe822ca09e11de57808b8"
+    },
+    {
+      "path": "dist/assets/index-DJ416PM_.css",
+      "bytes": 21310,
+      "sha256": "9243edc1ed58dae0c914d0e9e29dbc8a7e75bebedb11b6a731f2cbc057e4ab4c"
+    },
+    {
+      "path": "dist/index.html",
+      "bytes": 368,
+      "sha256": "ea55af8fa89175125c9d1854b312b708bd4f04eb5d864a0196e00c9a76bbe88c"
+    },
+    {
+      "path": "index.html",
+      "bytes": 269,
+      "sha256": "6f4a83205cd7bbfe53575da03f435e3005096c2ec3184589af06f134c1e4ad51"
+    },
+    {
+      "path": "package-lock.json",
+      "bytes": 28521,
+      "sha256": "941e10cdae38969d1455f9b2214e3d71ab75537feb5af694f54ad58460124281"
+    },
+    {
+      "path": "package.json",
+      "bytes": 627,
+      "sha256": "1f053ddcae22999ca221c6e3c3ee7a6067421a48704b3dfb82e686db39501da2"
+    },
+    {
+      "path": "scripts/start.mjs",
+      "bytes": 1824,
+      "sha256": "a50d807f5cc761e010c56837e3b43310476c4226502b8e246110b1bbd6e82459"
+    },
+    {
+      "path": "scripts/stop.mjs",
+      "bytes": 611,
+      "sha256": "b283503088da8ed3d4880c9fd04e4c80a682711f723151b0b9668892e40a424f"
+    },
+    {
+      "path": "scripts/version-receipt.mjs",
+      "bytes": 1242,
+      "sha256": "78a69fed60d7040c5eb2d10d4e8d9e67e31703e3e54d537e2e3116a2fbe73bee"
+    },
+    {
+      "path": "server/fixtures.ts",
+      "bytes": 3308,
+      "sha256": "262840158717505df221929d96aba3c159de764fb5234f9946eff1305b103034"
+    },
+    {
+      "path": "server/main.ts",
+      "bytes": 7932,
+      "sha256": "447fb8f7b3f5b9d6df774a17ed8a9bf4c941313efec2224162ea0905443ec6ad"
+    },
+    {
+      "path": "server/model.ts",
+      "bytes": 7137,
+      "sha256": "8a6925686cfab77773ef61420903a20e30d4273133fff090c5fa8f0286548299"
+    },
+    {
+      "path": "server/workbench.ts",
+      "bytes": 25909,
+      "sha256": "f7bb2c225bcf8458c1e9257c759cfc0cdfc8fb673e87e155ac980b28f090471e"
+    },
+    {
+      "path": "tsconfig.json",
+      "bytes": 218,
+      "sha256": "fe6ef08c3baa080731254fa5f4a31cc9c16edd9b01884786d4914f97fd692287"
+    },
+    {
+      "path": "tsconfig.server.json",
+      "bytes": 211,
+      "sha256": "96462a268ba5f62b054538537cb7f0ba21659e366c19a8ac22ffb757c85dde2f"
+    },
+    {
+      "path": "停止工作台.command",
+      "bytes": 110,
+      "sha256": "5c3a0827264f39ebbfa6d36801033a752c1ce34c1f078ce92e91ba7e5bc43acc"
+    },
+    {
+      "path": "启动工作台.command",
+      "bytes": 111,
+      "sha256": "74f9fb95957b59999ed01821961a9ab94df12b441d4878e9bae02066114777ff"
+    }
+  ],
+  "deviations": []
+}

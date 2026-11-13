@@ -1,0 +1,93 @@
+{
+  "appVersion": "0.1.0",
+  "schemaName": "project-evidence-workbench",
+  "schemaVersion": 1,
+  "threadId": "01a12ed9-1b22-7d40-a6da-09f604fd72dc",
+  "hostId": "local",
+  "sourceFingerprint": "afaffec6462da02eeab0956d86127edba5c0a93e463029206c8d708f67cc2ecf",
+  "softwareStatus": "OWNER_TECHNICAL_ACCEPTANCE_PASS",
+  "pmoStatus": "AWAITING_ORIGINAL_EVIDENCE_REVIEW",
+  "userExperience": "NOT_VERIFIED",
+  "realBusiness": "USER_PENDING",
+  "entry": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/启动工作台.command",
+  "stop": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/停止工作台.command",
+  "runbook": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/docs/RUN_AND_RECOVER.md",
+  "acceptance": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/docs/ACCEPTANCE-20261012.md",
+  "dataRoot": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/data/demo",
+  "runtime": "/Users/USER/.local/nodejs/node-v22.16.0-darwin-arm64/bin/node",
+  "runtimeVersion": "22.16.0",
+  "p0Groups": [
+    "B1",
+    "B2",
+    "B3",
+    "B4"
+  ],
+  "scenarios": [
+    {
+      "id": "E01",
+      "status": "PASS",
+      "receipt": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/evidence/rev2/E01/core-receipt.json",
+      "deviations": []
+    },
+    {
+      "id": "E02",
+      "status": "PASS",
+      "receipt": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/evidence/rev2/E02/core-receipt.json",
+      "deviations": []
+    },
+    {
+      "id": "E03",
+      "status": "PASS",
+      "receipt": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/evidence/rev2/E03/core-receipt.json",
+      "deviations": []
+    },
+    {
+      "id": "E04",
+      "status": "PASS",
+      "receipt": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/evidence/rev2/E04/core-receipt.json",
+      "deviations": []
+    },
+    {
+      "id": "E05",
+      "status": "PASS",
+      "receipt": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/evidence/rev2/E05/core-receipt.json",
+      "deviations": []
+    }
+  ],
+  "browser": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/evidence/rev2/browser-latest.json",
+  "launcher": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/evidence/rev2/launcher/receipt.json",
+  "internalExample": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/evidence/rev2/browser-1791815083709/actual-internal-download.json",
+  "publicExample": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/evidence/rev2/browser-1791815083709/actual-public-download.json",
+  "services": "STOPPED_OWNED_INSTANCES",
+  "automation": "NONE",
+  "actualRouting": {
+    "model": "UNKNOWN",
+    "effort": "UNKNOWN",
+    "speed": "UNKNOWN"
+  },
+  "budgetSeconds": 43200,
+  "cumulativeSecondsAt174258": 3669,
+  "waitSeconds": 0,
+  "deviations": [],
+  "limitations": [
+    "3明确虚构示例，未读真实素材",
+    "390px窄浏览器，非手机网络验收",
+    "未承诺检测所有历史源变化或完整磁盘毁坏恢复",
+    "原生自动open在启动验收被抑制，由独立Chrome打开实际启动文件验证等效链"
+  ],
+  "goalStatus": "complete",
+  "cumulativeActiveSeconds": 3882,
+  "goalFinalReceipt": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/docs/GOAL_FINAL_RECEIPT-20261012.json",
+  "uiRevision": 8,
+  "uiReport": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/docs/UI_SOURCES-20261012.md",
+  "uiFunctionalReceipt": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/evidence/rev2/browser-1791815083709/receipt.json",
+  "uiVisualReceipt": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/evidence/rev2/sources-1791815083703/receipt.json",
+  "originalImplementationAcceptance": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/docs/ACCEPTANCE-20261012.md",
+  "uiInteractionReceipt": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/.impeccable/review/interaction-1791815225581/receipt.json",
+  "uiWorkflowReceipt": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/.impeccable/review/workflow-1791815225568/receipt.json",
+  "uiVersionBinding": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/evidence/rev2/ui-revision8-verification.json",
+  "uiCompletionReceipt": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/.impeccable/review/completion-1791815083711/receipt.json",
+  "uiCraftReceipt": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/evidence/rev2/craft-after-1791815226720/receipt.json",
+  "uiNotebookReceipt": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/evidence/rev2/notebook-1791815225569/receipt.json",
+  "uiSourceNavigationReceipt": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/evidence/rev2/sources-1791815083703/receipt.json"
+}

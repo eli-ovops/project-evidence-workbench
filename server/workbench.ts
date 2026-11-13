@@ -1,0 +1,120 @@
+import fs from 'node:fs/promises';
+import {constants} from 'node:fs';
+import path from 'node:path';
+import {randomUUID,createHash} from 'node:crypto';
+import {APP,VERSION,State,Evidence,PublicText,AppError,fail,validateState} from './model.js';
+import {createFixtures} from './fixtures.js';
+export const sha=(s:string|Buffer)=>createHash('sha256').update(s).digest('hex');
+const clone=<T>(x:T):T=>JSON.parse(JSON.stringify(x));
+const json=(x:unknown)=>JSON.stringify(x,null,2)+'\n';
+type Hooks={beforeCommit?:()=>void;beforeSourceOpen?:()=>void;beforeExportFile?:(index:number)=>void;beforeExportCommit?:()=>void};
+export type Bundle={manifest:any;files:Record<string,string>};
+async function sizeOf(root:string):Promise<number>{let n=0;for(const d of await fs.readdir(root,{withFileTypes:true})){const p=path.join(root,d.name);if(d.isSymbolicLink())fail('ROOT','数据根含符号链接');n+=d.isDirectory()?await sizeOf(p):(await fs.stat(p)).size}return n}
+async function noLinks(file:string){if(!path.isAbsolute(file)||file.split(path.sep).includes('..')||file.includes('\0'))fail('PATH','必须登记无穿越的精确绝对路径');let cursor=path.parse(file).root;for(const piece of file.slice(cursor.length).split(path.sep)){if(!piece)continue;cursor=path.join(cursor,piece);const st=await fs.lstat(cursor);if(st.isSymbolicLink())fail('PATH','路径组件为符号链接');}return fs.lstat(file)}
+async function writeAtomic(file:string,text:string){const temp=file+'.inflight-'+randomUUID();const f=await fs.open(temp,'wx',0o600);try{await f.writeFile(text);await f.sync()}finally{await f.close()}await fs.rename(temp,file);const dir=await fs.open(path.dirname(file),'r');try{await dir.sync()}finally{await dir.close()}}
+const safeSource=(f:string)=>{const parts=f.split(path.sep);if(parts.some(p=>p.startsWith('.'))||/\.(?:sqlite\d*|db|sql|pem|key|p12|exe|sh|command|env|zip|tar|gz)$/i.test(f)||/(?:cookie|credential|secret|password|token)/i.test(path.basename(f)))fail('PATH','隐藏、秘密、数据库、备份或可执行对象不允许读取')};
+export class Workbench {
+ state!:State; private lock:any;private q:Promise<any>=Promise.resolve();
+ readonly grants=new Map<string,{content:boolean;actor:string;fingerprint:any}>();
+ readonly approvals=new Map<string,string>();
+ private rootIdentity!:string;private halted=false;
+ constructor(readonly root:string,readonly now:()=>Date=()=>new Date(),readonly hooks:Hooks={},readonly limits={normal:24*1024*1024,hard:32*1024*1024}){}
+ at(){return this.now().toISOString()}
+ static async initialize(root:string,fixtureRoot:string,now=()=>new Date()){
+  if(await fs.stat(root).then(()=>true,()=>false))fail('EXISTS','初始化根已存在，禁止覆盖');
+  await noLinks(path.dirname(root));await fs.mkdir(root,{recursive:false});
+  const s=await createFixtures(fixtureRoot,now().toISOString());validateState(s);await writeAtomic(path.join(root,'identity.json'),json({app:APP,rootId:s.rootId}));await writeAtomic(path.join(root,'state.json'),json(s));return s;
+ }
+ async open(){
+  const stat=await noLinks(this.root);if(!stat.isDirectory())fail('ROOT','数据根不是目录');
+  this.rootIdentity=`${stat.dev}:${stat.ino}`;
+  const identity=JSON.parse(await fs.readFile(path.join(this.root,'identity.json'),'utf8'));
+  this.state=JSON.parse(await fs.readFile(path.join(this.root,'state.json'),'utf8'));validateState(this.state);
+  if(identity.app!==APP||identity.rootId!==this.state.rootId)fail('ROOT','根身份不匹配，禁止初始化或写入');
+  try{this.lock=await fs.open(path.join(this.root,'writer.lock'),'wx',0o600);await this.lock.writeFile(json({app:APP,rootId:this.state.rootId,pid:process.pid}))}catch(e){fail('LOCK','同数据根已有实例或残留锁；请核所属进程，不能换端口绕过',409)}
+  return this;
+ }
+ async close(){if(this.lock){await this.lock.close();this.lock=null;const p=path.join(this.root,'writer.lock');const l=JSON.parse(await fs.readFile(p,'utf8'));if(l.pid===process.pid&&l.rootId===this.state.rootId)await fs.unlink(p)}}
+ private async guard(){const st=await noLinks(this.root);if(`${st.dev}:${st.ino}`!==this.rootIdentity)fail('ROOT','根身份改变，停止写入');const id=JSON.parse(await fs.readFile(path.join(this.root,'identity.json'),'utf8'));if(id.rootId!==this.state.rootId||id.app!==APP)fail('ROOT','根身份不匹配');const disk=JSON.parse(await fs.readFile(path.join(this.root,'state.json'),'utf8'));validateState(disk);if(disk.rootId!==this.state.rootId||disk.revision!==this.state.revision)fail('ROOT','磁盘状态已变动，停止写入');}
+ async commit(revision:number,action:string,actor:string,edit:(s:State)=>void,safety=false){
+  const run=async()=>{await this.guard();if(revision!==this.state.revision)fail('CONFLICT','内容已有更新，你的编辑仍保留',409);const next=clone(this.state);edit(next);next.revision++;
+   const diff:any[]=[];for(const key of ['projects','evidence','claims','publicTexts'] as const){const before=new Map(this.state[key].map((x:any)=>[x.id||x.projectId,x]));for(const obj of next[key] as any[]){const id=obj.id||obj.projectId, old:any=before.get(id);const fields=Object.keys(obj).filter(k=>JSON.stringify(old?.[k])!==JSON.stringify(obj[k]));if(fields.length)diff.push({object:key,id,fields})}}
+   next.history.push({revision:next.revision,at:this.at(),actor,action,diff});validateState(next);
+   const bytes=Buffer.byteLength(json(next));const total=await sizeOf(this.root);if(total+bytes*2>(safety?this.limits.hard:this.limits.normal))fail('CAPACITY','容量达上限；旧数据保留，不能自动清理',413);
+   this.hooks.beforeCommit?.();await writeAtomic(path.join(this.root,'previous.json'),json(this.state));await writeAtomic(path.join(this.root,'state.json'),json(next));this.state=next;return this.view();};
+  const result=this.q.then(run);this.q=result.catch(()=>{});return result;
+ }
+ view(){return {...clone(this.state),grants:Array.from(this.grants,([id,g])=>({id,content:g.content,actor:g.actor})),publicStatuses:this.state.publicTexts.map(p=>({projectId:p.projectId,...this.publicStatus(p)})),gaps:this.gaps(),application:{name:APP,version:VERSION,rootId:this.state.rootId}}}
+ verificationDays(id:string){const dims=this.state.claims.filter(c=>c.evidenceIds.includes(id)).map(c=>c.dimension);return dims.length&&dims.every(d=>d==='职责'||d==='公开许可')?90:7}
+ gaps(){const out:any[]=[];for(const e of this.state.evidence){if(!e.sourceDate)out.push({id:e.id,code:'UNKNOWN_DATE',message:'历史来源日期未知，不能补今天'});if(!e.productVersion)out.push({id:e.id,code:'UNKNOWN_VERSION',message:'具体产品版本未知'});if(!this.grants.has(e.id))out.push({id:e.id,code:'GRANT_PENDING',message:'本启动会话尚未放行读取'});if(!e.lastVerifiedAt)out.push({id:e.id,code:'UNREAD',message:'未复核，内容一致性 UNKNOWN'});else if(this.now().getTime()-Date.parse(e.lastVerifiedAt)>this.verificationDays(e.id)*86400000)out.push({id:e.id,code:'EXPIRED',message:'复核已过期；不表示业务失败'})}
+  for(const p of this.state.projects){for(const dim of new Set(this.state.claims.filter(c=>c.projectIds.includes(p.id)).map(c=>c.dimension))){const c=this.state.claims.filter(c=>c.projectIds.includes(p.id)&&c.dimension===dim);if(new Set(c.map(x=>x.recordedResult)).size>1)out.push({id:p.id,dimension:dim,code:'CONFLICTING_SOURCES',message:'同维度来源冲突，保留全部，不自动选胜者'})}}
+  for(const c of this.state.claims)if(c.recordedResult==='通过'&&(!c.evidenceIds.length||c.evidenceIds.some(id=>{const e=this.evidence(id);return !e.confirmer||!e.productVersion||!e.excerpt||e.type!=='原件'})))out.push({id:c.id,code:'UNVERIFIED_PASS',message:'PASS只是未核记录，非软件验收'});return out;
+ }
+ evidence(id:string){return this.state.evidence.find(e=>e.id===id)||fail('NOT_FOUND','证据不存在',404)}
+ async inspect(e:Evidence,content=false){
+  if(this.halted||e.revoked)fail('GRANT','读取已撤销或保存失败后关闭',403);const grant=this.grants.get(e.id)||fail('GRANT','未获本会话对应读取许可',403);if(content&&!grant.content)fail('GRANT','未获本会话正文读取许可',403);
+  safeSource(e.locator);const st=await noLinks(e.locator);if(!st.isFile()||(st.mode&0o111))fail('PATH','仅允许普通非可执行文件');if(content&&!/\.(txt|md|csv|json)$/i.test(e.locator))fail('TYPE','首版只读取允许的普通文本');
+  if(content&&st.size>256*1024)fail('LIMIT','文本源超过256KiB',413);
+  if(grant.fingerprint&&(st.dev!==grant.fingerprint.dev||st.ino!==grant.fingerprint.ino))fail('SOURCE_REPLACED','源对象身份变化，需重新登记',409);
+  this.hooks.beforeSourceOpen?.();const f=await fs.open(e.locator,constants.O_RDONLY|constants.O_NOFOLLOW);try{
+   const fst=await f.stat();const after=await noLinks(e.locator);if(!fst.isFile()||fst.dev!==st.dev||fst.ino!==st.ino||after.dev!==fst.dev||after.ino!==fst.ino)fail('SOURCE_REPLACED','实际打开fd与登记路径不符',409);
+   const fingerprint={dev:fst.dev,ino:fst.ino,size:fst.size,mtimeMs:fst.mtimeMs};
+   if(!content)return {fingerprint,coverage:'metadata-only',message:'本次未观察到元数据变化；内容一致性 UNKNOWN'};
+   const buf=Buffer.alloc(Math.min(fst.size+1,256*1024+1));const {bytesRead}=await f.read(buf,0,buf.length,0);if(bytesRead>256*1024)fail('LIMIT','读取中内容超限',413);
+   const final=await f.stat();const ps=await noLinks(e.locator);if(final.size!==fst.size||final.mtimeMs!==fst.mtimeMs||ps.ino!==fst.ino||ps.dev!==fst.dev)fail('SOURCE_CHANGED','读取过程中源变化',409);
+   if(this.halted||this.evidence(e.id).revoked||this.grants.get(e.id)!==grant)fail('GRANT','读取期间许可已撤销',403);
+   const data=buf.subarray(0,bytesRead);return {fingerprint,coverage:'content-bytes',hash:sha(data),text:data.toString('utf8')};
+  }finally{await f.close()}
+ }
+ async reviewGrants(){return this.state.evidence.map(e=>({id:e.id,locator:e.locator,purpose:e.purpose,productVersion:e.productVersion,sourceDate:e.sourceDate,scope:'metadata-only / content separately',previousFingerprint:e.fingerprint||null,active:this.grants.has(e.id),revoked:e.revoked,requiresExplicitConfirmation:true}))}
+ async grant(ids:string[],content:boolean,actor:string,revision:number){
+  if(!actor.trim()||!ids.length||ids.length>50)fail('GRANT','明确选择范围、用途和确认人');const verified=new Map<string,any>();
+  for(const id of ids){const e=this.evidence(id);safeSource(e.locator);const stat=await noLinks(e.locator);if(!stat.isFile()||(stat.mode&0o111))fail('PATH','不是允许的普通文件');if(e.fingerprint&&(e.fingerprint.dev!==stat.dev||e.fingerprint.ino!==stat.ino))fail('SOURCE_REPLACED','对象身份有差异，不能批量确认',409);if(ids.length>1&&e.fingerprint&&(e.fingerprint.size!==stat.size||e.fingerprint.mtimeMs!==stat.mtimeMs))fail('SOURCE_CHANGED','有变化项不能批量确认，请单项复核范围与版本',409);verified.set(id,{content,actor,fingerprint:{dev:stat.dev,ino:stat.ino,size:stat.size,mtimeMs:stat.mtimeMs}})}
+  await this.commit(revision,'grant',actor,s=>{for(const id of ids){s.evidence.find(e=>e.id===id)!.revoked=false;s.grantHistory.push({evidenceId:id,actor,at:this.at(),mode:content?'content':'metadata',revoked:false})}});for(const [id,v]of verified)this.grants.set(id,v);return this.view();
+ }
+ async revoke(id:string,actor:string,revision:number){this.evidence(id);this.grants.delete(id);this.approvals.clear();try{return await this.commit(revision,'revoke',actor,s=>{const e=s.evidence.find(e=>e.id===id)!;e.revoked=true;e.revision++;s.grantHistory.push({evidenceId:id,actor,at:this.at(),mode:'none',revoked:true})},true)}catch(e){this.halted=true;throw e}}
+ async check(ids:string[]){const results:any[]=[];for(const id of ids.slice(0,50)){const e=this.evidence(id);try{const g=this.grants.get(id);const result=await this.inspect(e,!!g?.content);const changed=!!result.hash&&!!e.hash&&result.hash!==e.hash;const metaChanged=e.fingerprint&&(e.fingerprint.size!==result.fingerprint.size||e.fingerprint.mtimeMs!==result.fingerprint.mtimeMs);await this.commit(this.state.revision,'check',g?.actor||'UNKNOWN',s=>{const v=s.evidence.find(x=>x.id===id)!;if(changed){v.revision++;this.approvals.clear()}v.fingerprint=result.fingerprint;if(result.hash){v.hash=result.hash;v.excerpt=Buffer.from(result.text||'').subarray(0,4096).toString('utf8');v.lastVerifiedAt=this.at()} });results.push({id,status:changed?'BYTE_CHANGED':metaChanged?'METADATA_CHANGED':'CHECKED',coverage:result.coverage,message:result.hash?'已读字节，不证明业务真实':'内容一致性 UNKNOWN'})}catch(err){results.push({id,status:(err as any).code||'READ_ERROR',coverage:'not-read',message:(err as Error).message});this.approvals.clear()}}
+  return {results,deviations:[],view:this.view()};
+ }
+ async save(kind:string,obj:any,revision:number){
+  if(!obj||typeof obj!=='object')fail('INPUT','对象非法');
+  return this.commit(revision,'save-'+kind,'local-user',s=>{
+   if(kind==='project'){const id=obj.id||'P-'+randomUUID();const old=s.projects.find(p=>p.id===id);const v={id,title:String(obj.title||'').slice(0,200),type:String(obj.type||'UNKNOWN').slice(0,100),navigation:String(obj.navigation||'').slice(0,500),fictional:!!obj.fictional,revision:(old?.revision||0)+1};if(!v.title)fail('INPUT','标题必填');if(old)Object.assign(old,v);else s.projects.push(v)}
+   else if(kind==='claim'){const id=obj.id||'C-'+randomUUID();const old=s.claims.find(c=>c.id===id);const v={id,projectIds:obj.projectIds,dimension:obj.dimension,text:String(obj.text||'').slice(0,2000),evidenceIds:obj.evidenceIds,recordedResult:String(obj.recordedResult||'UNKNOWN').slice(0,80),limits:String(obj.limits||'').slice(0,2000),revision:(old?.revision||0)+1};if(!v.text)fail('INPUT','结论文字必填');if(old)Object.assign(old,v);else s.claims.push(v)}
+   else if(kind==='evidence'){const id=obj.id||'E-'+randomUUID();const old=s.evidence.find(e=>e.id===id);const locator=String(obj.locator||'');safeSource(locator);if(!path.isAbsolute(locator)||locator.split(path.sep).includes('..'))fail('PATH','精确绝对路径必填');const v={id,locator,purpose:String(obj.purpose||'').slice(0,500),type:String(obj.type||'摘要').slice(0,30),sourceDate:obj.sourceDate||null,productVersion:String(obj.productVersion||'').slice(0,80),confirmer:String(obj.confirmer||'').slice(0,100),position:String(obj.position||'').slice(0,100),excerpt:old?.locator===locator?old.excerpt:'',hash:old?.locator===locator?old.hash:undefined,lastVerifiedAt:old?.locator===locator?old.lastVerifiedAt:null,revision:(old?.revision||0)+1,revoked:old?.revoked||false};if(!v.purpose)fail('INPUT','用途必填');if(old){if(old.locator!==locator)this.grants.delete(id);Object.assign(old,v)}else s.evidence.push(v)}
+   else if(kind==='public'){const old=s.publicTexts.find(p=>p.projectId===obj.projectId);const v:PublicText={projectId:obj.projectId,publicTitle:String(obj.publicTitle||'').slice(0,200),publicRole:String(obj.publicRole||'').slice(0,500),publicOutcome:String(obj.publicOutcome||'').slice(0,1000),publicLimits:String(obj.publicLimits||'').slice(0,1000),publicLinks:obj.publicLinks||[],publicAllowedDates:String(obj.publicAllowedDates||'').slice(0,80),claimIds:obj.claimIds||[],revision:(old?.revision||0)+1,rightsRevision:(old?.rightsRevision||0)+1,rights:{actor:String(obj.actor||'').slice(0,100),purpose:String(obj.purpose||'案例文字展示').slice(0,100),expiresAt:obj.expiresAt||null,revoked:!!obj.revoked}};this.validatePublic(v);if(old)Object.assign(old,v,{approval:undefined});else s.publicTexts.push(v)}
+   else fail('INPUT','对象类型非法');this.approvals.clear();
+  });
+ }
+ private validatePublic(p:PublicText){if(!Array.isArray(p.publicLinks)||p.publicLinks.length>5)fail('INPUT','公开链接最多5条');for(const link of p.publicLinks){const u=new URL(link);if(u.protocol!=='https:'||u.username||u.password||u.search||/^(localhost|127\.|10\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.|\[|0\.0\.0\.0)/i.test(u.hostname)||!u.hostname.includes('.'))fail('PUBLIC','只允许无查询秘密的公开 HTTPS 链接')}const t=[p.publicTitle,p.publicRole,p.publicOutcome,p.publicLimits,p.publicAllowedDates].join('\n');if(/\/Users\/|\/Volumes\/|file:\/\/|\.env|BEGIN .*PRIVATE KEY|(?:api[_-]?key|password|token)\s*[:=]/i.test(t))fail('PUBLIC','公开文字含内部路径或疑似秘密')}
+ digest(p:PublicText){return sha(json({text:[p.publicTitle,p.publicRole,p.publicOutcome,p.publicLimits,p.publicLinks,p.publicAllowedDates],revision:p.revision,rightsRevision:p.rightsRevision,rights:p.rights,claims:p.claimIds.map(id=>{const c=this.state.claims.find(c=>c.id===id)!;return {c,e:c.evidenceIds.map(eid=>{const e=this.evidence(eid);return {id:e.id,revision:e.revision,hash:e.hash,productVersion:e.productVersion,type:e.type,confirmer:e.confirmer,revoked:e.revoked}})}})}))}
+ publicStatus(p:PublicText){try{this.validatePublic(p);if(!p.rights.actor||p.rights.revoked||!p.claimIds.length)fail('RIGHTS','USER_PENDING：当前用途尚无许可');if(p.rights.expiresAt&&Date.parse(p.rights.expiresAt)<=this.now().getTime())fail('RIGHTS','公开许可已过期');if(p.approval&&(this.now().getTime()<Date.parse(p.approval.at)||this.now().getTime()-Date.parse(p.approval.at)>90*86400000))fail('APPROVAL','公开文字90天复核已过期或时间待核');const ev=new Set(p.claimIds.flatMap(id=>this.state.claims.find(c=>c.id===id)?.evidenceIds||[]));if(!ev.size)fail('PUBLIC','公开结论无证据引用');for(const id of ev){const e=this.evidence(id);if(!this.grants.get(id)?.content||e.revoked||!e.hash||!e.lastVerifiedAt)fail('PUBLIC','源/读取许可/当前版本待核');const age=this.now().getTime()-Date.parse(e.lastVerifiedAt!);if(age<0||age>this.verificationDays(e.id)*86400000)fail('PUBLIC','证据复核已过期或时间待核')}
+  const digest=this.digest(p);if(!p.approval||p.approval.digest!==digest||this.approvals.get(p.projectId)!==digest)fail('APPROVAL','本会话公开文字尚未核准或依赖失效');return {valid:true,message:'当前会话已核准；仅所列用途',digest};}catch(e){return {valid:false,message:(e as Error).message}}
+ }
+ async approve(projectId:string,actor:string,revision:number){const p=this.state.publicTexts.find(p=>p.projectId===projectId)||fail('NOT_FOUND','公开文本不存在');if(!actor.trim())fail('INPUT','确认人必填');const existing=this.approvals.get(projectId);const prev=p.approval;const d=this.digest(p);p.approval={digest:d,actor,at:this.at(),purpose:p.rights.purpose};this.approvals.set(projectId,d);const status=this.publicStatus(p);p.approval=prev;existing?this.approvals.set(projectId,existing):this.approvals.delete(projectId);if(!status.valid)fail('PUBLIC',status.message,403);await this.commit(revision,'approve',actor,s=>{s.publicTexts.find(x=>x.projectId===projectId)!.approval={digest:d,actor,at:this.at(),purpose:p.rights.purpose}});this.approvals.set(projectId,d);return this.view()}
+ private markdown(p:PublicText){return `# ${p.publicTitle}\n\n角色：${p.publicRole}\n\n结果：${p.publicOutcome}\n\n局限：${p.publicLimits}\n\n${p.publicLinks.join('\n')}\n${p.publicAllowedDates}\n`}
+ async export(mode:string,projectIds:string[]){
+  if(!['internal','public'].includes(mode)||!projectIds.length||projectIds.some(id=>!this.state.projects.some(p=>p.id===id)))fail('INPUT','请选择有效项目与导出模式');
+  const related=this.state.claims.filter(c=>c.projectIds.some(id=>projectIds.includes(id)));const eids=[...new Set(related.flatMap(c=>c.evidenceIds))];
+  for(const id of eids){const e=this.evidence(id);if(e.revoked||!this.grants.has(id))fail('GRANT','引用的源未获当前会话读取/导出许可',403)}
+  if(mode==='public'){for(const p of this.state.publicTexts.filter(p=>projectIds.includes(p.projectId))){const status=this.publicStatus(p);if(!status.valid)fail('PUBLIC',status.message,403);for(const eid of new Set(p.claimIds.flatMap(id=>this.state.claims.find(c=>c.id===id)!.evidenceIds))){const r=await this.inspect(this.evidence(eid),true);if(r.hash!==this.evidence(eid).hash){this.approvals.delete(p.projectId);fail('SOURCE_CHANGED','字节变化，公开批准已失效，请先检查复核',409)}}}}
+  if(mode==='internal')for(const e of this.state.evidence)if(e.excerpt&&(!this.grants.get(e.id)?.content||e.revoked))fail('GRANT','完整内部包有已撤销或未放行的缓存摘录，拒绝新导出',403);
+  const snapshot=clone(this.state), exportId=randomUUID(),dir=path.join(this.root,'exports',exportId);const files:Record<string,string>={};
+  if(mode==='internal'){files['state.json']=json(snapshot);files['index.md']=snapshot.projects.filter(p=>projectIds.includes(p.id)).map(p=>`# ${p.title}\n${related.filter(c=>c.projectIds.includes(p.id)).map(c=>`${c.dimension}：${c.text}（人工登记 ${c.recordedResult}）\n${c.evidenceIds.map(id=>{const e=this.evidence(id);return `${id} ${e.locator}#${e.position}`}).join('\n')}`).join('\n\n')}`).join('\n\n')}
+  else {for(const p of snapshot.publicTexts.filter(p=>projectIds.includes(p.projectId)))files[p.projectId+'.md']=this.markdown(p)}
+  const mf={producerApp:APP,appVersion:VERSION,schemaName:APP,schemaVersion:1,exportId,createdAt:this.at(),sourceRevisionRefs:mode==='public'?projectIds.map(id=>{const p=snapshot.publicTexts.find(p=>p.projectId===id)||fail('PUBLIC','所选项目缺公开文本');return {objectId:id,revision:p.revision,dependencyDigest:p.approval?.digest}}): [{rootId:snapshot.rootId,revision:snapshot.revision}],files:Object.entries(files).map(([relativePath,text])=>({relativePath,sha256:sha(text),bytes:Buffer.byteLength(text)})),verificationCoverage:mode==='public'?['public-whitelist','approved-revision','authorized-text-hash']:['tool-state','ID-relations'],limitations:['索引不是原项目备份','规则与人工记录不证明业务真实','真实资料与许可 USER_PENDING'],privacyMode:mode,status:'PARTIAL',lockedRevision:snapshot.revision};
+  const payloadBytes=Object.values(files).reduce((n,s)=>n+Buffer.byteLength(s),0);await this.guard();if(await sizeOf(this.root)+payloadBytes*2+4096>this.limits.normal)fail('CAPACITY','导出容量不足，旧包保留',413);
+  await fs.mkdir(dir,{recursive:true});await writeAtomic(path.join(dir,'manifest.json'),json(mf));
+  try{let i=0;for(const [name,text]of Object.entries(files)){this.hooks.beforeExportFile?.(i++);await writeAtomic(path.join(dir,name),text);if(sha(await fs.readFile(path.join(dir,name)))!==sha(text))fail('EXPORT','导出字节校验失败')}
+   this.hooks.beforeExportCommit?.();if(this.state.revision!==snapshot.revision)fail('CONFLICT','导出期间索引修订变化，不能提交',409);for(const id of eids)if(!this.grants.has(id)||this.evidence(id).revoked)fail('GRANT','导出期间许可撤销',403);if(mode==='public')for(const p of snapshot.publicTexts.filter(p=>projectIds.includes(p.projectId)))if(!this.publicStatus(this.state.publicTexts.find(x=>x.projectId===p.projectId)!).valid)fail('PUBLIC','导出期间公开核准失效',403);
+   mf.status='COMPLETED';await writeAtomic(path.join(dir,'manifest.json'),json(mf));return {exportId,manifest:mf};
+  }catch(e){mf.status='FAILED';await writeAtomic(path.join(dir,'manifest.json'),json({...mf,error:(e as any).code||'EXPORT_ERROR'})).catch(()=>{});throw e}
+ }
+ async listExports(){const base=path.join(this.root,'exports');const dirs=await fs.readdir(base).catch(()=>[]);const list=[];for(const id of dirs)if(/^[a-f0-9-]{36}$/.test(id)){const mf=JSON.parse(await fs.readFile(path.join(base,id,'manifest.json'),'utf8'));list.push(mf)}return list.sort((a,b)=>b.createdAt.localeCompare(a.createdAt))}
+ async download(id:string):Promise<Bundle>{if(!/^[a-f0-9-]{36}$/.test(id))fail('INPUT','导出ID非法');const dir=path.join(this.root,'exports',id);const mf=JSON.parse(await fs.readFile(path.join(dir,'manifest.json'),'utf8'));if(mf.status!=='COMPLETED')fail('INCOMPLETE','未完成包不能下载',409);if(mf.privacyMode==='public'){for(const ref of mf.sourceRevisionRefs){const p=this.state.publicTexts.find(p=>p.projectId===ref.objectId);if(!p||p.revision!==ref.revision||this.digest(p)!==ref.dependencyDigest||!this.publicStatus(p).valid)fail('PUBLIC','公开包许可/依赖已失效，拒绝新下载；旧文件保留',403)}}
+  const files:Record<string,string>={};for(const entry of mf.files){if(!/^[A-Za-z0-9_-]+\.(json|md)$/.test(entry.relativePath))fail('PATH','包路径非法');const b=await fs.readFile(path.join(dir,entry.relativePath));if(sha(b)!==entry.sha256||b.length!==entry.bytes)fail('HASH','包摘要不匹配');files[entry.relativePath]=b.toString('base64')}return {manifest:mf,files};}
+ static async restore(bundle:Bundle,target:string){
+  const mf=bundle?.manifest;if(!mf||mf.schemaName!==APP||mf.schemaVersion!==1||mf.privacyMode!=='internal'||mf.status!=='COMPLETED'||!Array.isArray(mf.files))fail('SCHEMA','仅支持本工具已完成内部包');const data=Buffer.from(bundle.files?.['state.json']||'','base64');for(const f of mf.files){if(!/^[A-Za-z0-9_-]+\.(json|md)$/.test(f.relativePath))fail('PATH','包路径非法');const b=Buffer.from(bundle.files?.[f.relativePath]||'','base64');if(sha(b)!==f.sha256||b.length!==f.bytes)fail('HASH','摘要不匹配')}
+  const s:State=JSON.parse(data.toString('utf8'));validateState(s);if(await fs.stat(target).then(()=>true,()=>false))fail('EXISTS','恢复必须使用新根，不覆盖/合并');await noLinks(path.dirname(target));if(await sizeOf(path.dirname(target))+data.length*2>24*1024*1024)fail('CAPACITY','隔离恢复容器容量不足，原包保留',413);await fs.mkdir(target);s.rootId=randomUUID();s.restored=true;await writeAtomic(path.join(target,'identity.json'),json({app:APP,rootId:s.rootId}));await writeAtomic(path.join(target,'state.json'),json(s));return {root:target,rootId:s.rootId,relationships:'preserved',grants:'historical-inactive',approvals:'historical-inactive'};
+ }
+}

@@ -1,0 +1,15 @@
+{
+  "scenario": "E02",
+  "appVersion": "0.1.0",
+  "fixture": "E02",
+  "owner": "01a12ed9-1b22-7d40-a6da-09f604fd72dc",
+  "createdAt": "2026-10-12T09:06:50.520Z",
+  "deviations": [
+    {
+      "message": "Missing expected rejection."
+    }
+  ],
+  "status": "FAIL",
+  "assertions": [],
+  "artifactRoot": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/evidence/rev2/core-1791796010429"
+}

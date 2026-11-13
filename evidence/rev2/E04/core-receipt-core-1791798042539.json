@@ -1,0 +1,19 @@
+{
+  "scenario": "E04",
+  "appVersion": "0.1.0",
+  "fixture": "E04",
+  "owner": "01a12ed9-1b22-7d40-a6da-09f604fd72dc",
+  "createdAt": "2026-10-12T09:40:42.863Z",
+  "deviations": [],
+  "status": "PASS",
+  "assertions": [
+    "second writer blocked",
+    "stale revision no overwrite",
+    "fault adapter actual state unchanged",
+    "failed revoke closes live map",
+    "cold start no approval/grant revival",
+    "capacity no new large payload but safety revoke retained",
+    "missing initialized state not recreated"
+  ],
+  "artifactRoot": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/evidence/rev2/core-1791798042539"
+}

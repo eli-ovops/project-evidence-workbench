@@ -1,0 +1,53 @@
+{
+  "threadId": "01a12ed9-1b22-7d40-a6da-09f604fd72dc",
+  "hostId": "local",
+  "projectId": "7bfcbd13-3c77-434b-9e6e-71a62cead403",
+  "prdPath": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/docs/EXECUTION_PRD-20261012.md",
+  "prdSha256": "625c36b643839bea4a6aa529264555696c71bd5aa5d032a76658f62d02fbad94",
+  "engineeringRoot": "/Volumes/EXTERNAL/FDE/project-evidence-workbench",
+  "dataRoot": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/data/demo",
+  "dataRootState": "planned-not-created",
+  "startedAt": "2026-10-12T16:41:49+08:00",
+  "goalTool": "create_goal",
+  "goalId": "UNKNOWN-not-returned",
+  "goalStatus": "active",
+  "rawGoalReceipt": {
+    "goal": {
+      "threadId": "01a12ed9-1b22-7d40-a6da-09f604fd72dc",
+      "objective": "按Rev2 PRD /Volumes/EXTERNAL/FDE/project-evidence-workbench/docs/EXECUTION_PRD-20261012.md 及本轮实施派单完成项目证据工作台的B1—B4、E01—E05：在本机隔离合成根实现、修复、验证、交付已测启动入口/虚构样例/实际导出/重启和隔离恢复/原始回执与已知问题。累计最多12小时，普通问题自主处理，必需验收未通过不标complete，不接真实数据/账户/媒体或外发/生产。",
+      "status": "active",
+      "tokensUsed": 0,
+      "timeUsedSeconds": 0,
+      "createdAt": 1791794509,
+      "updatedAt": 1791794509
+    },
+    "remainingTokens": null,
+    "completionBudgetReport": null
+  },
+  "rawReceiptLocator": "本会话本轮 create_goal 工具输出，createdAt=1791794509",
+  "rules": {
+    "handoff": "HANDOFF-2026-10-10-v2",
+    "routing": "ROUTING-2026-09-30-v3",
+    "blockers": "BLOCKERS-2026-09-23-v1"
+  },
+  "target": {
+    "model": "preserve-user-setting",
+    "effort": "preserve-user-setting",
+    "speed": "preserve-user-setting"
+  },
+  "actual": {
+    "model": "UNKNOWN",
+    "effort": "UNKNOWN",
+    "speed": "UNKNOWN"
+  },
+  "cumulativeActiveSeconds": 0,
+  "budgetSeconds": 43200,
+  "stage": "S1",
+  "next": "environment/fixture/schema checks; then isolated implementation",
+  "runtime": {
+    "path": "/Users/USER/.local/nodejs/node-v22.16.0-darwin-arm64/bin/node",
+    "version": "22.16.0",
+    "npm": "10.9.2"
+  },
+  "deviations": []
+}

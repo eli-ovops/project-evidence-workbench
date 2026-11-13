@@ -1,0 +1,40 @@
+{
+  "status": "PASS",
+  "checks": [
+    "single reading column; no permanent dashboard panels or duplicate navigation counters",
+    "reading details reveal low-frequency revoke action; actual revoke still works",
+    "project notes retain public status, global history and scope explanation",
+    "switching views keeps conclusion records and resets supplemental disclosure",
+    "390px supplemental notes stack naturally and remain accessible",
+    "320px project switcher and primary reading path stay usable",
+    "reduced motion removes disclosure and tab travel"
+  ],
+  "motion": [
+    33.4375,
+    82.15625,
+    126.8125,
+    163.78125,
+    192.84375,
+    214.84375,
+    231.21875,
+    243.5,
+    252.53125,
+    259.078125,
+    263.625,
+    266.625,
+    268.328125,
+    268.96875,
+    269,
+    269,
+    269,
+    269
+  ],
+  "pageErrors": [],
+  "artifactRoot": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/evidence/rev2/notebook-1791814560319",
+  "startedAt": "2026-10-12T14:16:00.367Z",
+  "layout": {
+    "width": 1040,
+    "left": 308,
+    "display": "block"
+  }
+}

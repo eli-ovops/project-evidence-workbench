@@ -1,0 +1,156 @@
+{
+  "uiRevision": 7,
+  "sourceFingerprint": "af1b9f8f7e12db692bb5fbcf09cff7a7564978e1c48cdad232229e22adca8662",
+  "owner": "01a12ed9-1b22-7d40-a6da-09f604fd72dc",
+  "changedApplicationFiles": [
+    "app/main.tsx",
+    "app/style.css",
+    "dist/assets/index-C0TmapJP.css",
+    "dist/assets/index-DPyt_e2B.js",
+    "dist/index.html"
+  ],
+  "backendUnchangedSinceUI6": true,
+  "buildStatus": "PASS_TYPESCRIPT_AND_VITE",
+  "binding": "VERSION prepared before final runs; all application hashes rechecked after tests; no subsequent application edits",
+  "receipts": {
+    "notebook": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/evidence/rev2/notebook-1791812373390/receipt.json",
+    "craft": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/evidence/rev2/craft-after-1791812373300/receipt.json",
+    "completion": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/.impeccable/review/completion-1791812373345/receipt.json",
+    "interaction": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/.impeccable/review/interaction-1791812373348/receipt.json",
+    "workflow": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/.impeccable/review/workflow-1791812373307/receipt.json",
+    "browser": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/evidence/rev2/browser-1791812373300/receipt.json"
+  },
+  "checks": {
+    "notebook": 7,
+    "craft": 9,
+    "completion": 7,
+    "interaction": 7,
+    "workflow": 9,
+    "browser": 7
+  },
+  "metrics": {
+    "desktop": {
+      "title": "28px",
+      "body": "14px",
+      "metadata": "12px",
+      "action": "13px",
+      "rail": 216,
+      "detailsInterpolation": true
+    },
+    "editor": {
+      "font": "14px",
+      "height": 42.390625
+    },
+    "narrow": {
+      "title": "22px",
+      "body": "14px",
+      "metadata": "12px",
+      "action": "13px",
+      "rail": 216,
+      "detailsInterpolation": true
+    },
+    "narrowEditor": {
+      "font": "16px",
+      "height": 46
+    }
+  },
+  "motion": {
+    "disclosure": [
+      33.4375,
+      82.171875,
+      126.578125,
+      163.796875,
+      192.84375,
+      214.734375,
+      231.3125,
+      243.5,
+      252.484375,
+      259.078125,
+      263.625,
+      266.625,
+      268.328125,
+      268.96875,
+      269,
+      269,
+      269,
+      269
+    ],
+    "tab": {
+      "frames": [
+        {
+          "x": 0,
+          "width": 28
+        },
+        {
+          "x": 28.0375,
+          "width": 35.0094
+        },
+        {
+          "x": 52.6629,
+          "width": 41.1657
+        },
+        {
+          "x": 71.6164,
+          "width": 45.9041
+        },
+        {
+          "x": 85.2498,
+          "width": 49.3125
+        },
+        {
+          "x": 94.7828,
+          "width": 51.6957
+        },
+        {
+          "x": 101.462,
+          "width": 53.3656
+        },
+        {
+          "x": 106.011,
+          "width": 54.5027
+        },
+        {
+          "x": 109.047,
+          "width": 55.2617
+        },
+        {
+          "x": 110.873,
+          "width": 55.7181
+        },
+        {
+          "x": 111.794,
+          "width": 55.9486
+        },
+        {
+          "x": 112,
+          "width": 56
+        },
+        {
+          "x": 112,
+          "width": 56
+        },
+        {
+          "x": 112,
+          "width": 56
+        }
+      ],
+      "duration": "0.18s",
+      "targetX": 112,
+      "targetWidth": 56
+    },
+    "reduced": {
+      "transition": "0s",
+      "animation": "none"
+    }
+  },
+  "actualBrowser": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+  "services": "STOPPED_OWNED_INSTANCES",
+  "deviations": [],
+  "limitations": [
+    "same-owner targeted review, not independent acceptance",
+    "synthetic data only",
+    "browser viewports are not physical devices",
+    "motion frame samples are not a performance benchmark",
+    "other engine native-details interpolation and full WCAG unverified"
+  ]
+}

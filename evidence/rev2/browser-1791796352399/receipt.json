@@ -1,0 +1,20 @@
+{
+  "owner": "01a12ed9-1b22-7d40-a6da-09f604fd72dc",
+  "appVersion": "0.1.0",
+  "startedAt": "2026-10-12T09:12:32.399Z",
+  "browser": "bundled Chromium / separate contexts",
+  "viewports": [
+    1440,
+    390
+  ],
+  "deviations": [
+    {
+      "message": "browserType.launch: Executable doesn't exist at /Users/USER/Library/Caches/ms-playwright/chromium_headless_shell-1234/chrome-headless-shell-mac-arm64/chrome-headless-shell\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+    }
+  ],
+  "status": "FAIL",
+  "checks": [],
+  "pageErrors": [],
+  "artifactRoot": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/evidence/rev2/browser-1791796352399",
+  "finishedAt": "2026-10-12T09:12:32.459Z"
+}

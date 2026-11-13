@@ -1,0 +1,129 @@
+{
+  "phase": "after",
+  "status": "PASS",
+  "checks": [
+    "source disclosure preserves exact path and remains readable",
+    "tabs move indicator while reading surface stays still",
+    "grouped editor preserves labels and Escape close",
+    "intermediate view reflows without horizontal overflow",
+    "390px editor has readable inputs and visible actions",
+    "320px gaps and tab rail remain reachable",
+    "reduced motion disables tab and drawer travel",
+    "body/metadata/title have deliberate readable scale",
+    "long project title and constrained viewport wrap without overflow"
+  ],
+  "metrics": {
+    "desktop": {
+      "title": "28px",
+      "body": "14px",
+      "metadata": "12px",
+      "action": "13px",
+      "rail": 216,
+      "detailsInterpolation": true
+    },
+    "editor": {
+      "font": "14px",
+      "height": 42.390625
+    },
+    "narrow": {
+      "title": "22px",
+      "body": "14px",
+      "metadata": "12px",
+      "action": "13px",
+      "rail": 216,
+      "detailsInterpolation": true
+    },
+    "narrowEditor": {
+      "font": "16px",
+      "height": 46
+    }
+  },
+  "motion": {
+    "disclosure": [
+      33.4375,
+      81.96875,
+      126.890625,
+      163.84375,
+      192.890625,
+      214.765625,
+      231.25,
+      243.515625,
+      252.5,
+      259.046875,
+      263.625,
+      266.609375,
+      268.328125,
+      268.96875
+    ],
+    "tab": {
+      "frames": [
+        {
+          "x": 0,
+          "width": 28
+        },
+        {
+          "x": 28.0375,
+          "width": 35.0094
+        },
+        {
+          "x": 52.6629,
+          "width": 41.1657
+        },
+        {
+          "x": 71.6164,
+          "width": 45.9041
+        },
+        {
+          "x": 85.2498,
+          "width": 49.3125
+        },
+        {
+          "x": 94.7828,
+          "width": 51.6957
+        },
+        {
+          "x": 101.462,
+          "width": 53.3656
+        },
+        {
+          "x": 106.011,
+          "width": 54.5027
+        },
+        {
+          "x": 109.047,
+          "width": 55.2617
+        },
+        {
+          "x": 110.873,
+          "width": 55.7181
+        },
+        {
+          "x": 111.794,
+          "width": 55.9486
+        },
+        {
+          "x": 112,
+          "width": 56
+        },
+        {
+          "x": 112,
+          "width": 56
+        },
+        {
+          "x": 112,
+          "width": 56
+        }
+      ],
+      "duration": "0.18s",
+      "targetX": 112,
+      "targetWidth": 56
+    },
+    "reduced": {
+      "transition": "0s",
+      "animation": "none"
+    }
+  },
+  "pageErrors": [],
+  "artifactRoot": "/Volumes/EXTERNAL/FDE/project-evidence-workbench/evidence/rev2/craft-after-1791812373300",
+  "startedAt": "2026-10-12T13:39:33.323Z"
+}
